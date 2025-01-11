@@ -1,0 +1,13 @@
+The following CSS code snippet demonstrates an uncommon error: unexpected behavior when using the `:has()` pseudo-class with a complex selector.
+
+```css
+.container:has(> .item:nth-child(2n+1) ~ .item) {
+  background-color: lightblue;
+}
+```
+
+This code intends to target `.container` elements only if they contain at least one odd-indexed `.item` element followed by another `.item` element. However, it may not work as expected in all browsers due to the interaction between `:has()`, `:nth-child()`, and general sibling combinator (`~`). Some browsers might have difficulties parsing or interpreting this complex selector combination.
+
+The issue stems from the ambiguity in the order of evaluation.  The browser needs to determine if the siblings exist *before* determining the `nth-child` condition, leading to inconsistent results.
+
+The problem is exacerbated when the selector becomes even more complex, involving other pseudo-classes or attributes.
