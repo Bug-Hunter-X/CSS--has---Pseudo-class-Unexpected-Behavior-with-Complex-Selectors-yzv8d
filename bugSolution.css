@@ -1,0 +1,19 @@
+The solution uses a more direct approach to achieve the same visual outcome. Instead of relying on the potentially problematic combination of selectors within `:has()`, we will use a more explicit and browser-compatible selector. For example, we can use JavaScript to achieve this behavior, or find a simpler approach in CSS by identifying the target element directly through parent-child relationships or attribute selectors.  
+
+Here's a possible solution that avoids the complex `:has()` selector: (JavaScript is needed for dynamic selectors)
+
+```javascript
+const containers = document.querySelectorAll('.container');
+containers.forEach(container => {
+  const oddItems = Array.from(container.querySelectorAll('.item:nth-child(2n+1)'));
+  if (oddItems.length > 0) {
+    //check if any of these items are followed by another item
+    const hasFollowingItem = oddItems.some(item => item.nextElementSibling !== null && item.nextElementSibling.classList.contains('item'));
+    if(hasFollowingItem){
+      container.style.backgroundColor = 'lightblue';
+    }
+  }
+});
+```
+
+This JavaScript code directly checks the condition for the presence of the odd-indexed item and a following item within each '.container', avoiding the potential parsing inconsistencies of the CSS selector.  Adapt and adjust this JavaScript solution to fit your broader application and structure.
